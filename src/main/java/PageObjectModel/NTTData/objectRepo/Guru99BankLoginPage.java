@@ -4,6 +4,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 import PageObjectModel.NTTData.context.PublicContext;
 
 public class Guru99BankLoginPage {
@@ -35,6 +39,7 @@ public class Guru99BankLoginPage {
 	public void clickLogin()
 	{
 		btnLogin.click();
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("User loggein successfully in account", ExtentColor.GREEN));
 	}
 	
 	public String getBankName()

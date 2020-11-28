@@ -2,31 +2,57 @@ package PageObjectModel.NTTData.testCases;
 
 import static org.testng.Assert.assertEquals;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 import PageObjectModel.NTTData.base.BrowserSetup;
+import PageObjectModel.NTTData.base.WaitConfiguration;
+import PageObjectModel.NTTData.context.PublicContext;
+import PageObjectModel.NTTData.listner.RetryingTestCases;
 import PageObjectModel.NTTData.objectRepo.Guru99BankLoginPage;
 import PageObjectModel.NTTData.objectRepo.Guru99HomePage;
 import PageObjectModel.NTTData.objectRepo.Guru99RegConformation;
 
 public class Guru99HomePageTestCase extends BrowserSetup {
-	@Test
-	public void testcase1() throws InterruptedException {
+
+	@DataProvider
+	public Object[] dataSetUP(){
+		return new Object[] {"TestCase1@test.com","TestCase2@test.com","TestCase3@test.com",
+				"TestCase4@test.com","TestCase5@test.com","TestCase6@test.com","TestCase7@test.com",
+				"TestCase8@test.com"};
+		
+	}
+	
+	@Test(retryAnalyzer = RetryingTestCases.class, dataProvider = "dataSetUP")
+	public void testcase1(String UID) throws InterruptedException {
+		PublicContext.test=PublicContext.reports.createTest("Verifying user is able to login into Gtpl BankBank ");
 		Guru99HomePage homePage=new Guru99HomePage();
 		Guru99RegConformation confPage=new Guru99RegConformation();
 		Guru99BankLoginPage bankLoginpage=new Guru99BankLoginPage();
-		homePage.sendEmailId("abc15@test.com");
+		homePage.sendEmailId(UID);
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("UserID "+UID+" is provided", ExtentColor.GREEN));
 		homePage.clickOnSubmit();
+		WaitConfiguration.applySleep(5);
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("click in Login button", ExtentColor.GREEN));
 		assertEquals("Access details to demo site.", confPage.getHeader());
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("Assertion successful", ExtentColor.GREEN));
 		String userID = confPage.getUserID();
 //		assertEquals("mngr296761", userID);
 		String password = confPage.getPassword();
 //		assertEquals("ytAnesE", password);
 		confPage.clickOnBankLink();
 		bankLoginpage.enterUID(userID);
-		bankLoginpage.enterPWD(password);	
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("UserID : "+userID+" is provided", ExtentColor.GREEN));
+		bankLoginpage.enterPWD(password);
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("Password : ******* is provided", ExtentColor.GREEN));
 		bankLoginpage.clickLogin();
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("User loggein successfully in account", ExtentColor.GREEN));
 		assertEquals("Gtpl Bank", bankLoginpage.getBankName());
+		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("Assertion successful", ExtentColor.GREEN));
 		
 	}
 }
