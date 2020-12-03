@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -25,6 +26,8 @@ public class BrowserSetup {
 
 	@BeforeMethod()
 	public void setup() {
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless");
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
 		PublicContext.driver = new ChromeDriver();// to launch browser
 		PublicContext.driver.manage().window().maximize();
@@ -49,12 +52,11 @@ public class BrowserSetup {
 			PublicContext.test.log(Status.FAIL, MarkupHelper.createLabel("Failed", ExtentColor.RED));
 			String SSpath = new GetScreenshot().getScreenshotAs();
 			try {
-				PublicContext.test.fail("Fail",
-						MediaEntityBuilder.createScreenCaptureFromPath(SSpath).build());
+				PublicContext.test.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(SSpath).build());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			PublicContext.test.fail(result.getThrowable().getLocalizedMessage());
 		}
 		PublicContext.driver.quit();

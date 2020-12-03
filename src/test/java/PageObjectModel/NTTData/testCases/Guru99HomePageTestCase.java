@@ -21,9 +21,7 @@ public class Guru99HomePageTestCase extends BrowserSetup {
 
 	@DataProvider
 	public Object[] dataSetUP(){
-		return new Object[] {"TestCase1@test.com","TestCase2@test.com","TestCase3@test.com",
-				"TestCase4@test.com","TestCase5@test.com","TestCase6@test.com","TestCase7@test.com",
-				"TestCase8@test.com"};
+		return new Object[] {"TestCase201@test.com"};
 		
 	}
 	
@@ -41,9 +39,7 @@ public class Guru99HomePageTestCase extends BrowserSetup {
 		assertEquals("Access details to demo site.", confPage.getHeader());
 		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("Assertion successful", ExtentColor.GREEN));
 		String userID = confPage.getUserID();
-//		assertEquals("mngr296761", userID);
 		String password = confPage.getPassword();
-//		assertEquals("ytAnesE", password);
 		confPage.clickOnBankLink();
 		bankLoginpage.enterUID(userID);
 		PublicContext.test.log(Status.PASS, MarkupHelper.createLabel("UserID : "+userID+" is provided", ExtentColor.GREEN));

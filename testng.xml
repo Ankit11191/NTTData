@@ -8,8 +8,7 @@
 	</listeners> -->
 	<test thread-count="5" name="Test">
 		<classes>
-			<class
-				name="PageObjectModel.NTTData.testCases.Guru99HomePageTestCase" />
+			<class name="PageObjectModel.NTTData.testCases.Guru99HomePageTestCase" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
