@@ -29,7 +29,7 @@ public class BrowserSetup {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
 		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
-		PublicContext.driver = new ChromeDriver();// to launch browser
+		PublicContext.driver = new ChromeDriver(options);// to launch browser
 		PublicContext.driver.manage().window().maximize();
 		PublicContext.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		PublicContext.driver.get(properties.readProperties("AppURL"));
